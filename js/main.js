@@ -1,8 +1,8 @@
 var CARTOCSS = [
           'Map {',
-          '-torque-time-attribute: "cartodb_id";',
+          '-torque-time-attribute: "time";',
           '-torque-aggregation-function: "count(1)";',
-          '-torque-frame-count: 256;',
+          '-torque-frame-count: 256;',  
           '-torque-animation-duration: 30;',
           '-torque-data-aggregation: linear;',
           '-torque-resolution: 4',
@@ -43,7 +43,7 @@ var CARTOCSS = [
           type: 'torque',
           options: {
               query: "SELECT * FROM " + "all_day",
-              user_name: "arobbins",
+              user_name: "ariannarobbins",
               cartocss: CARTOCSS
           }
       };
