@@ -1,8 +1,8 @@
 var CARTOCSS = [
           'Map {',
-          '-torque-time-attribute: "time";',
+          '-torque-time-attribute: "date";',
           '-torque-aggregation-function: "count(1)";',
-          '-torque-frame-count: 256;',  
+          '-torque-frame-count: 256;',
           '-torque-animation-duration: 30;',
           '-torque-data-aggregation: linear;',
           '-torque-resolution: 4',
@@ -31,18 +31,10 @@ var CARTOCSS = [
         attribution: 'CartoDB'
       }).addTo(map);
 
-      // var torqueLayer = new L.TorqueLayer({
-      //   user       : 'arobbins',
-      //   table      : 'all_day',
-      //   cartocss: CARTOCSS
-      // });
-      // torqueLayer.addTo(map);
-      // torqueLayer.play();
-
       var layerSource = {
           type: 'torque',
           options: {
-              query: "SELECT * FROM " + "all_day",
+              query: "SELECT * FROM " + "data_w_geom",
               user_name: "ariannarobbins",
               cartocss: CARTOCSS
           }
