@@ -3,37 +3,44 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <!-- CSS Imports -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
-    <!-- Sidebar -->
+  <body id="page-top">
+
     <div class="sidebar">
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <h1>Dec 2015 Cabs</h1>
+            <h1>AQA Attacks, 1981-2012</h1>
             <div id="button-container"></div>
           </div>
         </div>
       </nav>
-      <div class="container-fluid">
-        <ul id="project-list" class="list-group">
-        </ul>
+      <div class="target-button">
+        <button type="button" class="btn btn-primary">View Targeting Map</button>
+      </div>
+      <div class="tactics-button">
+        <button type="button" class="btn btn-primary">View Tactics Map</button>
+      </div>
+      <div class="reset-button">
+        <button type="button" class="btn btn-secondary">Reset</button>
       </div>
     </div>
-    <!-- Map -->
     <div id="map" class="map">
       <div id="time-window"></div>
     </div>
     <!-- Javascript Imports -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="js/torque.full.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>

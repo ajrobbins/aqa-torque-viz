@@ -32,38 +32,6 @@ body {
     padding-bottom: 60px;
 }
 
-.item {
-    padding: 10px;
-    background-color: #eee;
-}
-
-.item:not(:last-child) {
-    margin-bottom: 10px;
-}
-
-.item-heading {
-    font-size: 18px;
-    margin-top: 0;
-    font-weight: bold;
-}
-
-.sort {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 340px;
-    background-color: #fff;
-    padding: 20px;
-}
-
-.sort-option {
-    margin-left: 10px;
-}
-
-.sort-option.selected {
-    border-bottom: 1px solid #ccc;
-}
-
 .sidebar nav.navbar-default {
     border: 0;
     border-radius: 0;
@@ -78,6 +46,32 @@ body {
     font-weight: bold;
 }
 
+.target-button {
+  padding:20px;
+}
+
+.tactics-button {
+  padding:20px;
+}
+
+.reset-button {
+  padding: 20px;
+}
+
 div.cartodb-timeslider .slider-wrapper {
   width: 320px;
+}
+
+header {
+  padding: 154px 0 100px;
+}
+
+@media (min-width: 992px) {
+  header {
+    padding: 156px 0 100px;
+  }
+}
+
+section {
+  padding: 150px 0;
 }
