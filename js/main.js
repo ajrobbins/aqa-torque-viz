@@ -43,6 +43,7 @@ var CARTOCSS = [
       cartodb.createLayer(map, layerSource)
         .addTo(map)
         .done(function(layer) {
+
             var torqueLayer = layer;
             torqueLayer.pause();
 
@@ -56,7 +57,21 @@ var CARTOCSS = [
                     torqueLayer.pause();
                 }
             });
+            $('#target-button').click(function() {
+              console.log("targeting on");
+              torqueLayer.hide();
+              torqueLayer.stop();
+              $('.cartodb-timeslider').hide();
+              // layer.getSubLayer(0).setSQL('SELECT * FROM geom_data_js_v2 WHERE wtarg = 1');
+            });
 
+            $('#reset-button').click(function() {
+              console.log("reset!");
+              torqueLayer.show();
+              torqueLayer.play();
+              $('.cartodb-timeslider').show();
+              // layer.getSubLayer(0).setSQL('SELECT * FROM geom_data_js_v2 WHERE wtarg = 1');
+            });
         })
         .error(function(err) {
             console.log("Error: " + err);
