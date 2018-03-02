@@ -2,8 +2,8 @@ var CARTOCSS = [
           'Map {',
           '-torque-time-attribute: "date";',
           '-torque-aggregation-function: "count(1)";',
-          '-torque-frame-count: 256;',
-          '-torque-animation-duration: 30;',
+          '-torque-frame-count: 1;',
+          '-torque-animation-duration: 0;',
           '-torque-data-aggregation: linear;',
           '-torque-resolution: 4',
           '}',
@@ -31,32 +31,80 @@ var CARTOCSS = [
         attribution: 'CartoDB'
       }).addTo(map);
 
+      // var layerSource = {
+      //     type: 'torque',
+      //     options: {
+      //         query: "SELECT * FROM " + "data_w_geom",
+      //         user_name: "ariannarobbins",
+      //         cartocss: CARTOCSS
+      //     }
+      // };
       var layerSource = {
-          type: 'torque',
-          options: {
-              query: "SELECT * FROM " + "data_w_geom",
-              user_name: "ariannarobbins",
-              cartocss: CARTOCSS
-          }
+        user_name: 'ariannarobbins',
+        type: 'cartodb',
+        sublayers: [
+   {
+     sql: 'select * from all_day',
+     cartocss: '#layer { marker-fill:#4682B4; }'
+   },
+   {
+    sql: 'select * from data_w_geom',
+    cartocss: '#layer { marker-fill: #FFB927; }'
+   },
+ ],
       };
 
-      cartodb.createLayer(map, layerSource)
-        .addTo(map)
-        .done(function(layer) {
+      var selectedLayer;
+            // create layer selector
+            function createSelector(layers) {
+              var sql = new cartodb.SQL({ user: 'examples' });
 
-            var torqueLayer = layer;
-            torqueLayer.pause();
-
-            torqueLayer.on('load', function() {
-                torqueLayer.play();
-            });
-
-            // pause animation at last frame
-            torqueLayer.on('change:time', function(changes) {
-                if (changes.step === torqueLayer.provider.getSteps() - 1) {
-                    torqueLayer.pause();
+              var $options = $('#layer_selector li');
+              $options.click(function(e) {
+                // get the area of the selected layer
+                var $li = $(e.target);
+                var layer = $li.attr('id');
+                if(selectedLayer != layer ){
+                  // definitely more elegant ways to do this, but went for
+                  // ease of understanding
+                  if (layer == 'abc'){
+                    layers.getSubLayer(0).show(); // countries
+                    layers.getSubLayer(1).show(); // cables
+                    layers.getSubLayer(2).show(); // populated places
+                  }
+                  else if (layer == 'efg') {
+                    layers.getSubLayer(0).show();
+                    layers.getSubLayer(1).hide();
+                    layers.getSubLayer(2).show();
+                  }
+                  else {
+                    layers.getSubLayer(0).show();
+                    layers.getSubLayer(1).show();
+                    layers.getSubLayer(2).hide();
+                  }
                 }
-            });
+              });
+            }
+            selectedStyle = $('li.selected').attr('id');
+
+      cartodb.createLayer(map, layerSource, { filter: ['http', 'mapnik'] })
+        .addTo(map)
+        .done(function(layers) {
+          createSelector(layers);
+
+            // var torqueLayer = layer;
+            // torqueLayer.pause();
+            //
+            // torqueLayer.on('load', function() {
+            //     torqueLayer.play();
+            // });
+            //
+            // // pause animation at last frame
+            // torqueLayer.on('change:time', function(changes) {
+            //     if (changes.step === torqueLayer.provider.getSteps() - 1) {
+            //         torqueLayer.pause();
+            //     }
+            // });
             $('#target-button').click(function() {
               console.log("targeting on");
               torqueLayer.hide();
@@ -64,6 +112,7 @@ var CARTOCSS = [
               $('.cartodb-timeslider').hide();
               // layer.getSubLayer(0).setSQL('SELECT * FROM geom_data_js_v2 WHERE wtarg = 1');
             });
+
 
             $('#reset-button').click(function() {
               console.log("reset!");
