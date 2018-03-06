@@ -1,9 +1,10 @@
+function main() {
 var CARTOCSS = [
           'Map {',
           '-torque-time-attribute: "date";',
           '-torque-aggregation-function: "count(1)";',
-          '-torque-frame-count: 1;',
-          '-torque-animation-duration: 0;',
+          '-torque-frame-count: 256;',
+          '-torque-animation-duration: 30;',
           '-torque-data-aggregation: linear;',
           '-torque-resolution: 4',
           '}',
@@ -43,70 +44,32 @@ var CARTOCSS = [
       var otherLayerSource = {
           user_name: "ariannarobbins",
           type: "cartodb",
-          options: {
-            sql: "SELECT * FROM all_day",
-            cartocss: '#layer { marker-fill: #FFB927; }'
-          }
+          sublayers: [{
+           sql: 'select * from all_day',
+           cartocss: '#geom_data_js_v2 {marker-fill: #ff7800; }',
+          }]
       };
-//       var layerSource = {
-//         user_name: 'ariannarobbins',
-//         type: 'cartodb',
-//         sublayers: [
-//    {
-//     sql: 'select * from all_day',
-//     cartocss: '#layer { marker-fill: #FFB927; }'
-//    },
-//    {
-//   // type: 'torque', // Required
-//   options: {
-//     query: "SELECT * FROM " + "data_w_geom",   // Required if table_name is not given
-//     user_name: "ariannarobbins", // Required
-//     cartocss: CARTOCSS // Required
-//   }
-// }
-//  ],
-//       };
 
       var selectedLayer;
             // create layer selector
             function createSelector(layers) {
-              var sql = new cartodb.SQL({ user: 'examples' });
-
               var $options = $('#layer_selector li');
               $options.click(function(e) {
-                // get the area of the selected layer
                 var $li = $(e.target);
                 var layer = $li.attr('id');
                 if(selectedLayer != layer ){
-                  // definitely more elegant ways to do this, but went for
-                  // ease of understanding
+
                   if (layer == 'abc'){
                     layers.getSubLayer(0).show(); // countries
                     layers.getSubLayer(1).hide(); // cables
-                    // layers.getSubLayer(2).show(); // populated places
                   }
                   else if (layer == 'efg') {
                     layers.getSubLayer(0).hide();
                     layers.getSubLayer(1).show();
-                    // layers.getSubLayer(2).show();
-                    // var torqueLayer = layer;
-                    // torqueLayer.pause();
-                    //
-                    // torqueLayer.on('load', function() {
-                    //     torqueLayer.play();
-                    // });
-                    //
-                    // // pause animation at last frame
-                    // torqueLayer.on('change:time', function(changes) {
-                    //     if (changes.step === torqueLayer.provider.getSteps() - 1) {
-                    //         torqueLayer.pause();
-                    //     }
-                    // });
                   }
                   else {
                     layers.getSubLayer(0).show();
                     layers.getSubLayer(1).show();
-                    // layers.getSubLayer(2).hide();
                   }
                 }
               });
@@ -132,7 +95,6 @@ var CARTOCSS = [
                   torqueLayer.hide();
                   torqueLayer.stop();
                   $('.cartodb-timeslider').hide();
-                  // layer.getSubLayer(0).setSQL('SELECT * FROM geom_data_js_v2 WHERE wtarg = 1');
                 });
 
 
@@ -141,61 +103,27 @@ var CARTOCSS = [
                   torqueLayer.show();
                   torqueLayer.play();
                   $('.cartodb-timeslider').show();
-                  // layer.getSubLayer(0).setSQL('SELECT * FROM geom_data_js_v2 WHERE wtarg = 1');
                 });
             }
+            cartodb.createLayer(map, torqueLayerSource)
+              .addTo(map)
+              .done(function(torqueLayer) {
+                torqueLayer.pause();
+                torqueLayer.on('load', function() {
+                  torqueLayer.play();
+                });
 
-            var q = queue(3);
-            q.defer(function(torqueLayerSource, torqueLayerCallBack) {
-                cartodb.createLayer(map, torqueLayerSource, function(layer) { torqueLayerCallBack( layer); });
-            });
-            q.defer(function(otherLayerSource) {
-            cartodb.createLayer(map, otherLayerSource);
-            });
+                torqueLayer.on('change:time', function(changes) {
+                  if (changes.step === torqueLayer.provider.getSteps() - 1) {
+                    torqueLayer.pause();
+                  }
+                });
 
-            q.await(function() {
-                      var layers = Array.prototype.slice.call(arguments, 1);
-                      createSelector(layers);
-                      layers.forEach(function(layer) {
-                        layer.addTo(map);
-                      });
-                    });
-      // cartodb.createLayer(map, layerSource)
-      //   .addTo(map)
-      //   .done(function(layers) {
-      //     createSelector(layers);
-      //
-      //     var torqueLayer = layers[1];
-      //     torqueLayer.pause();
-      //
-      //     torqueLayer.on('load', function() {
-      //         torqueLayer.play();
-      //     });
-      //
-      //     // pause animation at last frame
-      //     torqueLayer.on('change:time', function(changes) {
-      //         if (changes.step === torqueLayer.provider.getSteps() - 1) {
-      //             torqueLayer.pause();
-      //         }
-      //     });
-      //
-      //       $('#target-button').click(function() {
-      //         console.log("targeting on");
-      //         torqueLayer.hide();
-      //         torqueLayer.stop();
-      //         $('.cartodb-timeslider').hide();
-      //         // layer.getSubLayer(0).setSQL('SELECT * FROM geom_data_js_v2 WHERE wtarg = 1');
-      //       });
-      //
-      //
-      //       $('#reset-button').click(function() {
-      //         console.log("reset!");
-      //         torqueLayer.show();
-      //         torqueLayer.play();
-      //         $('.cartodb-timeslider').show();
-      //         // layer.getSubLayer(0).setSQL('SELECT * FROM geom_data_js_v2 WHERE wtarg = 1');
-      //       });
-      //   })
-      //   .error(function(err) {
-      //       console.log("Error: " + err);
-      //   });
+                cartodb.createLayer(map, otherLayerSource)
+                  .addTo(map)
+                  .done(function() {
+                    createSelector(map.getLayers()); //get layers from map (map object) and pass to selector
+                  });
+              });
+}
+window.onload=main;
