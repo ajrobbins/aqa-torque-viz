@@ -25,21 +25,20 @@
         </div>
       </nav>
       <div class="target-button" id="target-button">
-        <button type="button" class="btn btn-primary">View Targeting Map</button>
-      </div>
-      <div class="tactics-button" id="tactics-button">
-        <button type="button" class="btn btn-primary">View Tactics Map</button>
+        <button type="button" class="btn btn-primary">Turn Off Torque Map</button>
       </div>
       <div class="reset-button" id="reset-button">
         <button type="button" class="btn btn-secondary">Reset</button>
       </div>
-      <div id="layer_selector" class="cartodb-infobox">
-        <ul>
-          <li id="abc" class="selected">All</li>
-          <li id="efg">Layer 1</li>
-          <li id="hij">Layer 2</li>
-        </ul>
-      </div>
+      <div id="cartocss" class="layer_selector">
+       <p id="js-crime-selector">Layer Selector</p>
+       <ul class="LayerSelector-list">
+           <li data="0" class="vio">Tactics
+           </li>
+           <li data="1">Targeting
+           </li>
+       </ul>
+   </div>
     </div>
     <div id="map" class="map">
       <div id="time-window"></div>
@@ -47,6 +46,7 @@
     <!-- Javascript Imports -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="js/torque.full.js"></script>
