@@ -40,6 +40,7 @@ window.onload = function() {
     }
   };
 
+  var INITIAL_SELECTED_SUBLAYER = 0;
   var otherLayerSource = {
     user_name: "ariannarobbins",
     type: "cartodb",
@@ -59,33 +60,7 @@ window.onload = function() {
     ]
   };
 
-
-            // Create layer selector
-  function createSelector(layer,num,violent,torque) {
-   for (var i = 0; i < layer.getSubLayerCount(); i++) {
-    if (i === num) {
-      layer.getSubLayer(i).show();
-    } else {
-      layer.getSubLayer(i).hide();
-    }
-   }
-   if (violent){
-      $(densityLegendNon.render().el).hide();
-      $(densityLegend.render().el).show();
-      console.log("violent");
-   }
-   else {
-      $(densityLegend.render().el).hide();
-      $(densityLegendNon.render().el).show();
-   }
-  }
-
-
-  selectedStyle = $('li.selected').attr('data');
-
   var densityLegend = new cdb.geo.ui.Legend.Density({
-		title:   "Tactics",
-  	left: "Low", right: "High", colors: [ "#26cad6", "#FED976", "#FEB24C", "#FD8D3C", "#FC4E2A", "#E31A1C", "#efe00b"  ]
     title: "Tactics",
     left: "Low",
     right: "High",
@@ -149,13 +124,57 @@ window.onload = function() {
         $(".cartodb-timeslider").show();
       });
     });
+
+  function selectInitialSublayer(layer) {
+    var isInitialViolent = $("ul")
+      .find("[data-sublayerIdx='" + INITIAL_SELECTED_SUBLAYER + "']")
+      .hasClass("vio");
+    selectSublayer(layer, INITIAL_SELECTED_SUBLAYER, isInitialViolent);
+  }
+
+  function selectSublayer(layer, selectedSublayer, violent) {
+    for (var i = 0; i < layer.getSubLayerCount(); i++) {
+      var sublayer = layer.getSubLayer(i);
+      if (i === selectedSublayer) {
+        sublayer.show();
+        // add popup
+        cdb.vis.Vis.addInfowindow(map, sublayer, ["eventid"], {
+          infowindowTemplate: $("#infowindow_template").html()
+        });
+      } else {
+        sublayer.hide();
+      }
+    }
+    if (violent) {
+      $(densityLegendNon.render().el).hide();
+      $(densityLegend.render().el).show();
+      console.log("violent");
+    } else {
+      $(densityLegend.render().el).hide();
+      $(densityLegendNon.render().el).show();
+    }
+
+    $("ul")
+      .find("[data-sublayerIdx='" + selectedSublayer + "']")
+      .addClass("font-weight-bold");
+
+    $("ul")
+      .find("[data-sublayerIdx!='" + selectedSublayer + "']")
+      .removeClass("font-weight-bold");
+  }
+
+  cartodb
+    .createLayer(map, otherLayerSource)
     .addTo(map)
     .done(function(layer) {
-      $("li").on('click', function(e) {
-        var num = +$(e.target).attr('Data');
-        console.log(num);
-        createSelector(layer,num,$(e.target).hasClass('vio'));
-        });
+      selectInitialSublayer(layer);
+
+      function handleLayerSelectorClick(e) {
+        var selectedSublayer = Number($(e.target).attr("data-sublayerIdx"));
+        var isViolent = $(e.target).hasClass("vio");
+        selectSublayer(layer, selectedSublayer, isViolent);
       }
-      );
+
+      $("li").on("click", handleLayerSelectorClick);
+    });
 };
