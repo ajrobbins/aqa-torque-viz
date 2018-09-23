@@ -33,9 +33,9 @@
       <div id="cartocss" class="layer_selector">
        <p id="js-crime-selector">Layer Selector</p>
        <ul class="LayerSelector-list">
-           <li data="0" class="vio">Tactics
+           <li data-sublayerIdx="0" class="vio">Tactics
            </li>
-           <li data="1">Targeting
+           <li data-sublayerIdx="1">Targeting
            </li>
        </ul>
    </div>
@@ -53,5 +53,20 @@
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
     <script src="js/main.js"></script>
+    <script type="infowindow/html" id="infowindow_template">
+     <div class="cartodb-popup v2">
+     <a href="#close" class="cartodb-popup-close-button close">x</a>
+     <div class="cartodb-popup-content-wrapper">
+     <div class="cartodb-popup-header">
+     </div>
+     <div class="cartodb-popup-content">
+     <!-- content.data contains the field info -->
+     <h4>Event ID: </h4>
+     <p>{{content.data.eventid}}</p>
+     </div>
+     </div>
+     <div class="cartodb-popup-tip-container"></div>
+     </div>
+    </script>
   </body>
 </html>
