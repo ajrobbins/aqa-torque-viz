@@ -24,12 +24,12 @@
           </div>
         </div>
       </nav>
-      <div class="target-button" id="target-button">
+      <!-- <div class="target-button" id="target-button">
         <button type="button" class="btn btn-primary">Turn Off Animation</button>
       </div>
       <div class="reset-button" id="reset-button">
         <button type="button" class="btn btn-secondary">Reset</button>
-      </div>
+      </div> -->
       <div id="cartocss" class="layer_selector">
        <p id="js-crime-selector">Layer Selector</p>
        <ul class="LayerSelector-list">
@@ -38,6 +38,30 @@
            <li data-sublayerIdx="1">Targeting
            </li>
        </ul>
+   </div>
+   <div id="modals">
+     <button class="btn btn-info" data-toggle="modal" data-target="#myModal">View PCA plot</button>
+
+     <!-- Modal -->
+     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="vertical-alignment-helper">
+             <div class="modal-dialog vertical-align-center">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                         </button>
+                          <h4 class="modal-title" id="myModalLabel">Affiliates' Average Position</h4>
+                     </div>
+                     <div class="modal-body">
+                       <img class="img-responsive"src="scoreplot.jpg" alt="scoreplot" />
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
    </div>
     </div>
     <div id="map" class="map">

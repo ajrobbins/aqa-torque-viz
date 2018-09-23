@@ -98,3 +98,32 @@ section {
       #layer_selector li.selected {
         background-color: #EEE;
       }
+      .vertical-alignment-helper {
+          display:table;
+          height: 100%;
+          width: 100%;
+          pointer-events:none;
+      }
+      .vertical-align-center {
+          /* To center vertically */
+          display: table-cell;
+          vertical-align: middle;
+          pointer-events:none;
+      }
+      .modal-content {
+          width:inherit;
+          max-width:80%;
+          max-height: 100%
+          height:inherit;
+          margin: 0 auto;
+          pointer-events: all;
+      }
+      .img-responsive {
+        height: 450px;
+      }
+
+      #modals {
+        position: absolute;;
+        left: 20px;
+        bottom: 20px;
+      }
