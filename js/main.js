@@ -49,28 +49,23 @@ window.onload = function() {
         sql: "SELECT * FROM data_w_geom",
         cartocss:
           "#data_w_geom [atac <-0.29]{marker-fill: #26cad6;} #data_w_geom [atac>-0.29] {marker-fill: #efe00b}", //teal-yellow, Tactics
-        interactivity: "eventid"
+        interactivity: ["imonth", "iday", "iyear", "summary", "gname"]
       },
       {
         sql: "SELECT * FROM data_w_geom",
         cartocss:
           "#data_w_geom [atarg<0.03]{marker-fill: #7a1168;} #data_w_geom [atarg>0.03] {marker-fill: #abca0c;}", //purple-green, Targeting
-        interactivity: "eventid"
+        interactivity: ["imonth", "iday", "iyear", "summary", "gname"]
       }
     ]
   };
 
   var densityLegend = new cdb.geo.ui.Legend.Density({
     title: "Tactics",
-    left: "Low",
-    right: "High",
+    left: "Kidnap",
+    right: "Suicide",
     colors: [
       "#26cad6",
-      "#FED976",
-      "#FEB24C",
-      "#FD8D3C",
-      "#FC4E2A",
-      "#E31A1C",
       "#efe00b"
     ]
   });
@@ -80,15 +75,10 @@ window.onload = function() {
 
   var densityLegendNon = new cdb.geo.ui.Legend.Density({
     title: "Targeting",
-    left: "Low",
-    right: "High",
+    left: "State",
+    right: "West",
     colors: [
       "#7a1168",
-      "#C7E9B4",
-      "#7FCDBB",
-      "#41B6C4",
-      "#1D91C0",
-      "#225EA8",
       "#abca0c"
     ]
   });
@@ -100,7 +90,7 @@ window.onload = function() {
     .done(function(torqueLayer) {
       torqueLayer.pause();
       torqueLayer.on("load", function() {
-        torqueLayer.play();
+        // torqueLayer.play();
       });
 
       //pause animation at last frame
@@ -138,7 +128,7 @@ window.onload = function() {
       if (i === selectedSublayer) {
         sublayer.show();
         // add popup
-        cdb.vis.Vis.addInfowindow(map, sublayer, ["eventid"], {
+        cdb.vis.Vis.addInfowindow(map, sublayer, ["imonth", "iday", "iyear", "summary", "gname"], {
           infowindowTemplate: $("#infowindow_template").html()
         });
       } else {
