@@ -15,55 +15,57 @@
   </head>
   <body id="page-top">
 
-    <div class="sidebar">
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <h1>AQA Attacks, 1981-2012</h1>
-            <div id="button-container"></div>
+    <nav align="center" class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">Al Qaeda Attacks, 1981-2012</span>
+    </nav>
+    <div class="card">
+      <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Select to view attacks by tactics or targeting</h5>
+        <p class="card-text">Using a Principle Components Analysis, all attacks have been sorted along two dimensions: Tactics (suicide or kidnapping) and Targeting (state or Western targets).</p>
+      </div>
+      <div id="cartocss" class="layer_selector">
+      <ul class="list-group list-group-flush LayerSelector-list">
+        <li data-sublayerIdx="0" class="vio list-group-item">Tactics</li>
+        <li data-sublayerIdx="1" class="list-group-item">Targeting</li>
+      </ul>
+      </div>
+      <div class="card-body">
+        <div id="modals">
+          <button class="btn btn-info" data-toggle="modal" data-target="#myModal">View PCA plot</button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="vertical-alignment-helper">
+                  <div class="modal-dialog vertical-align-center">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                              </button>
+                               <h4 class="modal-title" id="myModalLabel">Affiliates' Average Position</h4>
+                          </div>
+                          <div class="modal-body">
+                            <img class="img-responsive"src="scoreplot.jpg" alt="scoreplot" />
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
         </div>
-      </nav>
+      </div>
+    </div>
+  </div>
       <!-- <div class="target-button" id="target-button">
         <button type="button" class="btn btn-primary">Turn Off Animation</button>
       </div>
       <div class="reset-button" id="reset-button">
         <button type="button" class="btn btn-secondary">Reset</button>
       </div> -->
-      <div id="cartocss" class="layer_selector">
-       <p id="js-crime-selector">Layer Selector</p>
-       <ul class="LayerSelector-list">
-           <li data-sublayerIdx="0" class="vio">Tactics
-           </li>
-           <li data-sublayerIdx="1">Targeting
-           </li>
-       </ul>
-   </div>
-   <div id="modals">
-     <button class="btn btn-info" data-toggle="modal" data-target="#myModal">View PCA plot</button>
 
-     <!-- Modal -->
-     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="vertical-alignment-helper">
-             <div class="modal-dialog vertical-align-center">
-                 <div class="modal-content">
-                     <div class="modal-header">
-                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                         </button>
-                          <h4 class="modal-title" id="myModalLabel">Affiliates' Average Position</h4>
-                     </div>
-                     <div class="modal-body">
-                       <img class="img-responsive"src="scoreplot.jpg" alt="scoreplot" />
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
-   </div>
-    </div>
+
     <div id="map" class="map">
       <div id="time-window"></div>
     </div>
