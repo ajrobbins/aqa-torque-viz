@@ -27,7 +27,7 @@ window.onload = function() {
     zoom: 3
   });
 
-  L.tileLayer("https://{s}.api.cartocdn.com/base-dark/{z}/{x}/{y}.png", {
+  L.tileLayer("http://{s}.api.cartocdn.com/base-dark/{z}/{x}/{y}.png", {
     attribution: "CartoDB"
   }).addTo(map);
 
@@ -138,7 +138,6 @@ window.onload = function() {
     if (violent) {
       $(densityLegendNon.render().el).hide();
       $(densityLegend.render().el).show();
-      console.log("violent");
     } else {
       $(densityLegend.render().el).hide();
       $(densityLegendNon.render().el).show();
