@@ -90,7 +90,6 @@ window.onload = function() {
     .done(function(torqueLayer) {
       torqueLayer.pause();
       torqueLayer.on("load", function() {
-        // torqueLayer.play();
       });
 
       //pause animation at last frame
@@ -99,21 +98,6 @@ window.onload = function() {
           torqueLayer.pause();
         }
       });
-
-      $("#target-button").click(function() {
-        console.log("targeting on");
-        torqueLayer.hide();
-        torqueLayer.stop();
-        $(".cartodb-timeslider").hide();
-      });
-
-      $("#reset-button").click(function() {
-        console.log("reset!");
-        torqueLayer.show();
-        torqueLayer.play();
-        $(".cartodb-timeslider").show();
-      });
-    });
 
   function selectInitialSublayer(layer) {
     var isInitialViolent = $("ul")
@@ -138,7 +122,6 @@ window.onload = function() {
     if (violent) {
       $(densityLegendNon.render().el).hide();
       $(densityLegend.render().el).show();
-      console.log("violent");
     } else {
       $(densityLegend.render().el).hide();
       $(densityLegendNon.render().el).show();

@@ -108,7 +108,7 @@ section {
       }
       .modal-content {
           width:inherit;
-          max-width:80%;
+          max-width:60%;
           max-height: 100%
           height:inherit;
           z-index: 5;
