@@ -27,7 +27,7 @@ window.onload = function() {
     zoom: 3
   });
 
-  L.tileLayer("http://{s}.api.cartocdn.com/base-dark/{z}/{x}/{y}.png", {
+  L.tileLayer("https://{s}.api.cartocdn.com/base-dark/{z}/{x}/{y}.png", {
     attribution: "CartoDB"
   }).addTo(map);
 
@@ -85,7 +85,7 @@ window.onload = function() {
   $("#map").append(densityLegendNon.render().el);
 
   cartodb
-    .createLayer(map, torqueLayerSource)
+    .createLayer(map, torqueLayerSource, { https: true })
     .addTo(map)
     .done(function(torqueLayer) {
       torqueLayer.pause();
@@ -154,7 +154,7 @@ window.onload = function() {
   }
 
   cartodb
-    .createLayer(map, otherLayerSource)
+    .createLayer(map, otherLayerSource, { https: true })
     .addTo(map)
     .done(function(layer) {
       selectInitialSublayer(layer);
